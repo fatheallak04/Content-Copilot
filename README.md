@@ -1,115 +1,542 @@
 # Content Copilot 🤖✍️
 
-> An AI-powered, full-stack content automation system — from raw idea to publish-ready design — built to survive a schedule with zero spare time.
+> An AI-powered content automation system that turns raw ideas into structured, publish-ready content with minimal friction.
 
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
 ![Python](https://img.shields.io/badge/backend-Python-blue)
-![React](https://img.shields.io/badge/frontend-React-61DAFB)
+![Telegram](https://img.shields.io/badge/interface-Telegram-26A5E4)
 ![AI](https://img.shields.io/badge/AI-Gemini%20API-8E75B2)
 
 ---
 
 ## Table of Contents
+
 1. [Executive Summary](#1-executive-summary)
 2. [Problem Statement](#2-problem-statement)
 3. [Project Objectives](#3-project-objectives)
-4. [Tech Stack](#4-tech-stack)
-5. [System Architecture](#5-system-architecture)
-6. [Action Plan / Roadmap](#6-action-plan--roadmap)
-7. [Success Metrics](#7-success-metrics)
-8. [Security & Reliability Notes](#8-security--reliability-notes)
-9. [Future Work](#9-future-work)
+4. [Current Progress](#4-current-progress)
+5. [Tech Stack](#5-tech-stack)
+6. [System Architecture](#6-system-architecture)
+7. [Getting Started](#7-getting-started)
+8. [Roadmap](#8-roadmap)
+9. [Success Metrics](#9-success-metrics)
+10. [Security & Reliability](#10-security--reliability)
+11. [Future Work](#11-future-work)
 
 ---
 
 ## 1. Executive Summary
 
-Managing time between a computer engineering & networking degree, leading the student union, and evening cashier shifts makes consistent content creation nearly impossible. **Content Copilot** is a full-stack, AI-driven system that automates content production — from the first raw idea to a publish-ready design — end to end.
+Balancing university, leadership responsibilities, work, and everyday life can make consistent content creation difficult.
 
-The system acts as a personal digital assistant: it collapses hours of manual work into seconds, while also serving as a serious engineering showcase — spanning bot development, AI integration, backend logic, database design, and frontend dashboards.
+**Content Copilot** is an AI-driven system designed to reduce the time and effort required to transform quick, unstructured ideas into polished content.
 
-## 2. Problem Statement
+The long-term goal is to build an end-to-end content workflow covering:
 
-Content ideas are usually captured in fragments — a voice note, a rushed thought between shifts, a line jotted down before a lecture. Without a fast capture-to-output pipeline, these ideas die before they ever become a post. The bottleneck isn't creativity — it's **time and friction**.
+**Idea Capture → AI Generation → Content Management → Design → Scheduling → Analytics**
 
-## 3. Project Objectives
-
-- **Save time and effort** — turn quick, unstructured ideas into professional content (scripts + designs) within seconds via Telegram messages.
-- **Ensure consistency** — build a smart scheduling system that sends automatic reminders to keep a weekly publishing cadence.
-- **Demonstrate technical competence** — build a real product that integrates frontend development, databases, and API orchestration, reflecting strong problem-solving and system design skills.
-
-## 4. Tech Stack
-
-| Layer | Technology | Purpose |
-|---|---|---|
-| Frontend | **React** | Fast, interactive dashboard for content calendar & management |
-| Backend | **Python** | Bot logic, request handling, service orchestration |
-| Database | **SQL / SQLite** | Stores content plan, ideas, and publishing schedule |
-| AI Engine | **Gemini API** | Analyzes ideas, generates scripts/text in a personal tone |
-| Visual Automation | **HTML/CSS + html2image (Python)** | Converts generated text into publish-ready carousel images |
-| Interface | **Telegram Bot API** | Primary input channel — capture ideas anywhere, instantly |
-
-## 5. System Architecture
-
-```
-┌─────────────┐      ┌──────────────┐      ┌───────────────┐
-│  Telegram   │─────▶│   Python     │─────▶│   Gemini API   │
-│  (input)    │      │   Backend    │◀─────│  (text/script) │
-└─────────────┘      │  (bot logic) │      └───────────────┘
-                      │      │       │
-                      │      ▼       │
-                      │  SQL/SQLite  │◀── stores ideas, schedule, history
-                      │      │       │
-                      │      ▼       │
-                      │ HTML/CSS +   │──▶ Carousel images (ready to post)
-                      │ html2image   │
-                      └──────┬───────┘
-                             │
-                             ▼
-                     ┌───────────────┐
-                     │  React         │
-                     │  Dashboard     │──▶ calendar view, edit/manage content
-                     └───────────────┘
-```
-
-*(Diagram in plain-text form for now — a rendered version can be generated with tools like Excalidraw or Mermaid once the repo is public.)*
-
-## 6. Action Plan / Roadmap
-
-- [ ] **Phase 1 — Bot Foundation**
-  Set up the repository, configure the Telegram Bot, and connect it to the Gemini API to receive messages and convert them into structured text.
-
-- [ ] **Phase 2 — Automated Design**
-  Design HTML/CSS templates and write a Python script to merge generated text into templates, producing carousel-ready images.
-
-- [ ] **Phase 3 — Memory & Reminders**
-  Build the SQL database to store content history, and activate periodic reminder scripts via Telegram.
-
-- [ ] **Phase 4 — Dashboard**
-  Build the React interface for a full content calendar and management view, connected to the backend as one integrated system.
-
-- [ ] **Phase 5 — Hardening** *(new)*
-  Add error handling for API failures/timeouts, input validation, and basic logging so the system degrades gracefully instead of silently failing.
-
-## 7. Success Metrics
-
-- Time to go from raw idea → publish-ready post: target **under 2 minutes** (vs. hours manually).
-- Weekly publishing consistency: **at least 90%** adherence to the planned schedule.
-- Number of ideas captured vs. ideas actually published (capture-to-output conversion rate).
-
-## 8. Security & Reliability Notes
-
-- Bot tokens and API keys are stored in environment variables (`.env`), **never committed to the repo** — a `.gitignore` entry is mandatory from day one.
-- Gemini API calls should have timeout + retry logic; failed generations should queue for retry rather than silently drop.
-- SQLite backups should run on a simple schedule (even a cron-triggered copy) to avoid losing the content history.
-
-## 9. Future Work
-
-- Multi-platform publishing (Instagram, LinkedIn, X) directly from the dashboard.
-- Basic analytics — which topics/styles get the most engagement, fed back into idea generation.
-- Style fine-tuning — let the AI learn from past posts to match personal voice more closely over time.
-- Voice-note input support (since ideas are often captured by voice, not text).
+The project also serves as an engineering portfolio project combining AI integration, backend development, APIs, databases, automation, reliability, and frontend development.
 
 ---
 
-*This document is the single source of truth for the Content Copilot project and will be kept in sync with development. It also serves as the project's GitHub README.*
+## 2. Problem Statement
+
+Good content ideas often appear at inconvenient times:
+
+- A quick thought between tasks
+- A short Telegram message
+- An unfinished sentence
+- A voice note
+- An idea that needs development later
+
+Without a fast capture-to-output workflow, many of these ideas are forgotten or never developed.
+
+The main bottleneck is not creativity.
+
+It is **time and friction**.
+
+Content Copilot aims to minimize that friction by allowing the user to quickly submit an idea and let the system handle the first stages of content creation.
+
+---
+
+## 3. Project Objectives
+
+### Save Time
+
+Convert quick and unstructured ideas into useful content drafts within seconds.
+
+### Improve Consistency
+
+Create a workflow that helps maintain a consistent publishing schedule.
+
+### Reduce Friction
+
+Use Telegram as the main idea-capture interface so the user does not need to open a complex dashboard whenever an idea appears.
+
+### Build a Real Engineering Product
+
+Demonstrate practical skills in:
+
+- Python development
+- API integration
+- AI systems
+- Telegram Bot development
+- Error handling
+- Database design
+- Automation
+- Frontend development
+- System architecture
+
+---
+
+## 4. Current Progress
+
+The first working MVP is currently under development.
+
+### Implemented
+
+- [x] Git repository initialized
+- [x] GitHub repository connected
+- [x] Python virtual environment
+- [x] Telegram Bot integration
+- [x] Python backend
+- [x] Gemini API integration
+- [x] Telegram → Gemini → Telegram message flow
+- [x] Environment-variable based secret management
+- [x] Basic retry handling for temporary Gemini `503` errors
+
+### In Progress
+
+- [ ] Improve AI behavior and content-generation instructions
+- [ ] Improve response speed and model fallback strategy
+- [ ] Add structured content output
+- [ ] Add conversational context / memory
+
+### Planned
+
+- [ ] Persistent SQL/SQLite storage
+- [ ] Idea inbox
+- [ ] Content scheduling
+- [ ] Automated carousel generation
+- [ ] React dashboard
+- [ ] Voice-note support
+- [ ] Analytics feedback loop
+
+---
+
+## 5. Tech Stack
+
+| Layer | Technology | Status | Purpose |
+|---|---|---|---|
+| Interface | Telegram Bot API | ✅ Implemented | Fast idea capture and user interaction |
+| Backend | Python | ✅ Implemented | Bot logic, AI requests, and service orchestration |
+| AI Engine | Gemini API | ✅ Implemented | Content understanding and generation |
+| Secret Management | `.env` / python-dotenv | ✅ Implemented | Protect API keys and bot tokens |
+| Database | SQL / SQLite | 🚧 Planned | Store ideas, content history, preferences, and schedules |
+| Visual Automation | HTML/CSS + Python | 🚧 Planned | Generate publish-ready carousel images |
+| Frontend | React | 🚧 Planned | Content calendar and management dashboard |
+
+---
+
+## 6. System Architecture
+
+### Current MVP
+
+```text
+┌─────────────┐
+│    User     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Telegram   │
+│     Bot     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│   Python    │
+│   Backend   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Gemini API  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ AI Response │
+│ → Telegram  │
+└─────────────┘
+```
+
+### Target Architecture
+
+```text
+                     ┌───────────────┐
+                     │     User      │
+                     └───────┬───────┘
+                             │
+                             ▼
+                     ┌───────────────┐
+                     │   Telegram    │
+                     │ Idea Capture  │
+                     └───────┬───────┘
+                             │
+                             ▼
+                     ┌───────────────┐
+                     │    Python     │
+                     │    Backend    │
+                     └───────┬───────┘
+                             │
+              ┌──────────────┼──────────────┐
+              │              │              │
+              ▼              ▼              ▼
+       ┌────────────┐ ┌────────────┐ ┌─────────────┐
+       │ Gemini API │ │ SQL/SQLite │ │ Scheduling  │
+       │ Content AI │ │   Memory   │ │   System    │
+       └──────┬─────┘ └────────────┘ └─────────────┘
+              │
+              ▼
+       ┌──────────────┐
+       │ HTML / CSS   │
+       │ Design Layer │
+       └──────┬───────┘
+              │
+              ▼
+       ┌──────────────┐
+       │ Publish-ready│
+       │   Content    │
+       └──────────────┘
+
+                     ┌───────────────┐
+                     │ React         │
+                     │ Dashboard     │
+                     │ Calendar      │
+                     │ Analytics     │
+                     └───────────────┘
+```
+
+---
+
+## 7. Getting Started
+
+### Prerequisites
+
+- Python
+- Git
+- Telegram account
+- Telegram Bot Token
+- Gemini API Key
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/Content-Copilot.git
+cd Content-Copilot
+```
+
+### Create a Virtual Environment
+
+Windows:
+
+```bash
+py -m venv venv
+```
+
+Activate it:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+> Never commit the `.env` file or expose API keys publicly.
+
+### Run the Bot
+
+```bash
+python bot.py
+```
+
+The terminal should display:
+
+```text
+Content Copilot AI is running...
+```
+
+Then open the Telegram bot and send a message.
+
+---
+
+## 8. Roadmap
+
+### Phase 1 — Bot Foundation
+
+- [x] Initialize Git repository
+- [x] Connect GitHub repository
+- [x] Configure Telegram Bot
+- [x] Build Python backend
+- [x] Connect Gemini API
+- [x] Receive and respond to Telegram messages
+- [x] Add basic retry handling
+- [ ] Improve system instructions
+- [ ] Add model fallback
+- [ ] Add conversational context
+
+### Phase 2 — Content Intelligence
+
+- [ ] Detect content intent
+- [ ] Generate structured content
+- [ ] Generate hooks
+- [ ] Generate CTA suggestions
+- [ ] Support LinkedIn posts
+- [ ] Support Instagram captions
+- [ ] Support carousels
+- [ ] Support short-form video scripts
+
+### Phase 3 — Memory & Database
+
+- [ ] Add SQLite database
+- [ ] Store captured ideas
+- [ ] Store generated content
+- [ ] Track content status
+- [ ] Store user preferences
+- [ ] Build persistent conversation memory
+
+Possible content states:
+
+```text
+Idea → Draft → Approved → Scheduled → Published
+```
+
+### Phase 4 — Automated Design
+
+- [ ] Create reusable HTML/CSS templates
+- [ ] Insert generated content automatically
+- [ ] Generate carousel images
+- [ ] Return generated designs through Telegram
+
+### Phase 5 — Scheduling & Reminders
+
+- [ ] Weekly content planning
+- [ ] Smart reminders
+- [ ] Content calendar
+- [ ] Scheduled publishing workflow
+
+### Phase 6 — Dashboard
+
+Build a React dashboard for:
+
+- Ideas
+- Drafts
+- Scheduled posts
+- Published content
+- Content calendar
+- Editing
+- Analytics
+
+### Phase 7 — Reliability & Hardening
+
+- [x] Basic Gemini 503 retry handling
+- [ ] Exponential backoff improvements
+- [ ] Automatic model fallback
+- [ ] API timeout handling
+- [ ] Structured logging
+- [ ] Input validation
+- [ ] Database backups
+- [ ] Graceful service failure handling
+
+---
+
+## 9. Success Metrics
+
+### Speed
+
+Target:
+
+**Raw idea → useful content draft in under 2 minutes**
+
+### Publishing Consistency
+
+Target:
+
+**At least 90% adherence to the planned publishing schedule**
+
+### Idea Conversion
+
+Measure:
+
+```text
+Ideas Published
+─────────────── × 100
+Ideas Captured
+```
+
+### User Friction
+
+The number of actions required to capture an idea should remain minimal.
+
+Ideally:
+
+```text
+Open Telegram → Type idea → Send
+```
+
+---
+
+## 10. Security & Reliability
+
+### Secrets
+
+Sensitive credentials such as:
+
+- Telegram Bot Token
+- Gemini API Key
+
+are stored inside:
+
+```text
+.env
+```
+
+The `.env` file is excluded from Git using `.gitignore`.
+
+### Current `.gitignore`
+
+```gitignore
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+```
+
+### API Reliability
+
+The current implementation includes retry handling for temporary Gemini service failures such as:
+
+```text
+503 UNAVAILABLE
+```
+
+Future improvements will include:
+
+- Better exponential backoff
+- Model fallback
+- Timeout handling
+- Logging
+- Failure queues
+
+### Database Reliability
+
+Once persistent storage is implemented, SQLite backups will be scheduled to reduce the risk of losing content history.
+
+---
+
+## 11. Future Work
+
+### Idea Inbox
+
+Allow users to quickly save an idea without immediately turning it into content.
+
+Example:
+
+```text
+AI replacing junior engineers
+```
+
+Content Copilot:
+
+```text
+Idea saved ✅
+```
+
+The system can later recommend which ideas should be developed.
+
+### Personal Style Memory
+
+Learn from previously approved content to understand:
+
+- Preferred tone
+- Hook style
+- Writing length
+- Vocabulary
+- Platform preferences
+- CTA style
+
+### Voice Notes
+
+Allow users to capture ideas through Telegram voice messages.
+
+```text
+Voice Note
+    ↓
+Transcription
+    ↓
+Content Copilot
+    ↓
+Structured Content
+```
+
+### Analytics Feedback Loop
+
+Long-term workflow:
+
+```text
+Create
+  ↓
+Publish
+  ↓
+Measure
+  ↓
+Learn
+  ↓
+Create Better
+```
+
+The system could learn which:
+
+- Topics
+- Hooks
+- Formats
+- Writing styles
+
+perform best and use those insights during future content generation.
+
+### Multi-platform Publishing
+
+Potential integrations:
+
+- LinkedIn
+- Instagram
+- X
+
+---
+
+## Project Vision
+
+Content Copilot is not intended to become just another AI text generator.
+
+The goal is to build a personal content system that:
+
+> captures ideas instantly, understands how the user creates content, reduces repetitive work, and improves over time.
+
+---
+
+*Content Copilot is currently under active development.*
